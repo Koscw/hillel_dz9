@@ -90,17 +90,13 @@ def update_article(id):
 
 @article_api.delete(config.API_ROUTE_PREFIX+'articles/<id>')
 def delete_article(id):
-	try:
-		article = Article(id=str(id), title=request.json.get('title'), content=request.json.get('content'), author=request.json.get('author'))
-	except ValidationError as e:
-		return e.json()
-	data = article_crud.delete(article.dict(), id)
-	if data is True:
-		return flask.jsonify({
-				'code': 9,
-				'message': 'Статья успешно удаллена',
-				'data': False
-			})
+	return flask.jsonify(
+		{
+			'code': 0,
+			'message': 'Статья успешно удалена',
+			'data': article_crud.delete(id)
+		}
+	)
 
 
 
